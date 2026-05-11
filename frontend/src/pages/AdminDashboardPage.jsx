@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { formatIDR, formatKm } from "@/lib/brand";
+import { formatIDR, formatKm, LOGO_URL } from "@/lib/brand";
 import { LogOut, Plus, Pencil, Trash2, Car, Wallet, Users, MessageSquare } from "lucide-react";
 
 const emptyVehicle = {
@@ -122,8 +122,8 @@ export default function AdminDashboardPage() {
       {/* Admin Header */}
       <header className="bg-navy text-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-gold text-navy font-display font-bold">R</span>
+          <div className="flex items-center gap-3">
+            <img src={LOGO_URL} alt="Ritri Auto" className="h-10 w-10 rounded-full object-cover ring-2 ring-gold/40" />
             <div>
               <div className="font-display font-semibold">Admin · Ritri Auto</div>
               <div className="text-xs text-slate-300">Halo, {me.username}</div>

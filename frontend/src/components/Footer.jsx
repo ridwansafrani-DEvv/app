@@ -1,17 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Phone, MapPin, Mail, Instagram } from "lucide-react";
-import { BRAND, buildWhatsAppLink, WHATSAPP_NUMBER } from "@/lib/brand";
+import { BRAND, buildWhatsAppLink, WHATSAPP_NUMBER, LOGO_URL } from "@/lib/brand";
 
 export default function Footer() {
   return (
     <footer className="bg-navy text-white" data-testid="site-footer">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-gold text-navy font-display font-bold">
-              R
-            </span>
+          <div className="flex items-center gap-3">
+            <img
+              src={LOGO_URL}
+              alt="Ritri Auto Solution"
+              className="h-14 w-14 rounded-full object-cover ring-2 ring-gold/40"
+            />
             <div className="font-display font-bold text-xl">{BRAND.name}</div>
           </div>
           <p className="mt-5 text-slate-300 max-w-md leading-relaxed text-sm">

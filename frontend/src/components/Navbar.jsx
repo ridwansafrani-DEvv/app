@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import { BRAND } from "@/lib/brand";
+import { BRAND, LOGO_URL } from "@/lib/brand";
 
 const navItems = [
   { to: "/", label: "Beranda", end: true },
@@ -34,10 +34,12 @@ export default function Navbar() {
       data-testid="site-navbar"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group" data-testid="brand-logo">
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-navy text-white font-display font-bold tracking-tight">
-            R
-          </span>
+        <Link to="/" className="flex items-center gap-2.5 group" data-testid="brand-logo">
+          <img
+            src={LOGO_URL}
+            alt="Ritri Auto Solution"
+            className="h-10 w-10 md:h-11 md:w-11 rounded-full object-cover ring-1 ring-slate-200 shadow-sm"
+          />
           <div className="leading-tight">
             <div className="font-display font-bold text-navy text-base md:text-lg tracking-tight">
               {BRAND.name}
