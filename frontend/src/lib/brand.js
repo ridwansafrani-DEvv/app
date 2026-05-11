@@ -1,5 +1,5 @@
 // Placeholder WhatsApp number — ganti via env atau langsung di file ini
-export const WHATSAPP_NUMBER = "6281234567890";
+export const WHATSAPP_NUMBER = "6282214287769";
 
 export const BRAND = {
   name: "Ritri Auto Solution",
