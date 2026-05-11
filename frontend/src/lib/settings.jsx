@@ -10,6 +10,8 @@ const DEFAULTS = {
   hero_headline_2: "Pendanaan Terpercaya",
   hero_subheadline:
     "Menemukan motor dan mobil impian kini lebih mudah. Unit terinspeksi, proses transparan, dan solusi dana tunai Gadai BPKB yang aman bersama mitra leasing resmi.",
+  hero_image_url:
+    "https://images.unsplash.com/photo-1763562137761-c1feadcf4261?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
   stat_1_number: "500+",
   stat_1_label: "Klien Terlayani",
   stat_2_number: "100%",

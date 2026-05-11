@@ -68,7 +68,7 @@ export default function HomePage() {
           <div className="lg:col-span-6 order-1 lg:order-2 relative">
             <div className="relative aspect-[5/4] overflow-hidden grain shadow-2xl shadow-slate-300/50">
               <img
-                src="https://images.unsplash.com/photo-1763562137761-c1feadcf4261?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400"
+                src={settings.hero_image_url}
                 alt="Premium Vehicle"
                 className="w-full h-full object-cover"
               />

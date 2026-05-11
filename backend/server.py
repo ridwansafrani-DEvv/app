@@ -159,6 +159,7 @@ DEFAULT_SETTINGS = {
     "hero_headline_amp": "&",
     "hero_headline_2": "Pendanaan Terpercaya",
     "hero_subheadline": "Menemukan motor dan mobil impian kini lebih mudah. Unit terinspeksi, proses transparan, dan solusi dana tunai Gadai BPKB yang aman bersama mitra leasing resmi.",
+    "hero_image_url": "https://images.unsplash.com/photo-1763562137761-c1feadcf4261?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
     "stat_1_number": "500+",
     "stat_1_label": "Klien Terlayani",
     "stat_2_number": "100%",
@@ -184,6 +185,7 @@ class SiteSettings(BaseModel):
     hero_headline_amp: str = DEFAULT_SETTINGS["hero_headline_amp"]
     hero_headline_2: str = DEFAULT_SETTINGS["hero_headline_2"]
     hero_subheadline: str = DEFAULT_SETTINGS["hero_subheadline"]
+    hero_image_url: str = DEFAULT_SETTINGS["hero_image_url"]
     stat_1_number: str = DEFAULT_SETTINGS["stat_1_number"]
     stat_1_label: str = DEFAULT_SETTINGS["stat_1_label"]
     stat_2_number: str = DEFAULT_SETTINGS["stat_2_number"]
@@ -207,6 +209,7 @@ class SiteSettingsUpdate(BaseModel):
     hero_headline_amp: Optional[str] = None
     hero_headline_2: Optional[str] = None
     hero_subheadline: Optional[str] = None
+    hero_image_url: Optional[str] = None
     stat_1_number: Optional[str] = None
     stat_1_label: Optional[str] = None
     stat_2_number: Optional[str] = None

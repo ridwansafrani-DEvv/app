@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useSettings } from "@/lib/settings";
+import ImageUploader from "@/components/ImageUploader";
 import { Save, RefreshCw } from "lucide-react";
 
 export default function SettingsPanel() {
@@ -61,6 +62,13 @@ export default function SettingsPanel() {
         </Row>
         <Row label="Sub-headline (deskripsi)">
           <Textarea rows={3} value={form.hero_subheadline} onChange={(e) => update("hero_subheadline", e.target.value)} />
+        </Row>
+        <Row label="Foto Hero (mobil/motor di sebelah headline)">
+          <ImageUploader
+            mode="single"
+            value={form.hero_image_url}
+            onChange={(v) => update("hero_image_url", v)}
+          />
         </Row>
       </Section>
 
