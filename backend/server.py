@@ -150,6 +150,78 @@ class LoginResponse(BaseModel):
     username: str
 
 
+# ===== Site Settings =====
+DEFAULT_SETTINGS = {
+    "brand_name": "Ritri Auto Solution",
+    "brand_short": "Balikpapan · Handil",
+    "hero_overline": "Balikpapan · Handil · Kaltim",
+    "hero_headline_1": "Solusi Kendaraan Bekas",
+    "hero_headline_amp": "&",
+    "hero_headline_2": "Pendanaan Terpercaya",
+    "hero_subheadline": "Menemukan motor dan mobil impian kini lebih mudah. Unit terinspeksi, proses transparan, dan solusi dana tunai Gadai BPKB yang aman bersama mitra leasing resmi.",
+    "stat_1_number": "500+",
+    "stat_1_label": "Klien Terlayani",
+    "stat_2_number": "100%",
+    "stat_2_label": "Unit Terinspeksi",
+    "stat_3_number": "10 mnt",
+    "stat_3_label": "Respon WA",
+    "whatsapp_number": "6282214287769",
+    "email": "info@ritriautosolution.id",
+    "address": "Balikpapan & Handil, Kalimantan Timur",
+    "business_hours": "Senin – Sabtu · 08.00 – 20.00 WITA",
+    "business_hours_note": "Minggu / Libur: chat WA tetap aktif.",
+    "instagram_handle": "@ritriautosolution",
+    "footer_about": "Mitra konsultan profesional untuk pembelian, penjualan, tukar tambah kendaraan bekas dan solusi dana tunai Gadai BPKB di Balikpapan & Handil.",
+}
+
+
+class SiteSettings(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    brand_name: str = DEFAULT_SETTINGS["brand_name"]
+    brand_short: str = DEFAULT_SETTINGS["brand_short"]
+    hero_overline: str = DEFAULT_SETTINGS["hero_overline"]
+    hero_headline_1: str = DEFAULT_SETTINGS["hero_headline_1"]
+    hero_headline_amp: str = DEFAULT_SETTINGS["hero_headline_amp"]
+    hero_headline_2: str = DEFAULT_SETTINGS["hero_headline_2"]
+    hero_subheadline: str = DEFAULT_SETTINGS["hero_subheadline"]
+    stat_1_number: str = DEFAULT_SETTINGS["stat_1_number"]
+    stat_1_label: str = DEFAULT_SETTINGS["stat_1_label"]
+    stat_2_number: str = DEFAULT_SETTINGS["stat_2_number"]
+    stat_2_label: str = DEFAULT_SETTINGS["stat_2_label"]
+    stat_3_number: str = DEFAULT_SETTINGS["stat_3_number"]
+    stat_3_label: str = DEFAULT_SETTINGS["stat_3_label"]
+    whatsapp_number: str = DEFAULT_SETTINGS["whatsapp_number"]
+    email: str = DEFAULT_SETTINGS["email"]
+    address: str = DEFAULT_SETTINGS["address"]
+    business_hours: str = DEFAULT_SETTINGS["business_hours"]
+    business_hours_note: str = DEFAULT_SETTINGS["business_hours_note"]
+    instagram_handle: str = DEFAULT_SETTINGS["instagram_handle"]
+    footer_about: str = DEFAULT_SETTINGS["footer_about"]
+
+
+class SiteSettingsUpdate(BaseModel):
+    brand_name: Optional[str] = None
+    brand_short: Optional[str] = None
+    hero_overline: Optional[str] = None
+    hero_headline_1: Optional[str] = None
+    hero_headline_amp: Optional[str] = None
+    hero_headline_2: Optional[str] = None
+    hero_subheadline: Optional[str] = None
+    stat_1_number: Optional[str] = None
+    stat_1_label: Optional[str] = None
+    stat_2_number: Optional[str] = None
+    stat_2_label: Optional[str] = None
+    stat_3_number: Optional[str] = None
+    stat_3_label: Optional[str] = None
+    whatsapp_number: Optional[str] = None
+    email: Optional[str] = None
+    address: Optional[str] = None
+    business_hours: Optional[str] = None
+    business_hours_note: Optional[str] = None
+    instagram_handle: Optional[str] = None
+    footer_about: Optional[str] = None
+
+
 # ============ AUTH ============
 def get_current_admin(credentials: HTTPAuthorizationCredentials = Depends(security)):
     if credentials is None:
@@ -249,6 +321,35 @@ async def delete_vehicle(vehicle_id: str, _: str = Depends(get_current_admin)):
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Kendaraan tidak ditemukan")
     return {"ok": True}
+
+
+# --- Site Settings ---
+async def _get_settings_doc() -> dict:
+    doc = await db.site_settings.find_one({"_id": "main"}, {"_id": 0})
+    if not doc:
+        doc = dict(DEFAULT_SETTINGS)
+        await db.site_settings.insert_one({"_id": "main", **doc})
+    return doc
+
+
+@api_router.get("/settings", response_model=SiteSettings)
+async def get_settings():
+    doc = await _get_settings_doc()
+    merged = {**DEFAULT_SETTINGS, **doc}
+    return merged
+
+
+@api_router.put("/settings", response_model=SiteSettings)
+async def update_settings(payload: SiteSettingsUpdate, _: str = Depends(get_current_admin)):
+    update_data = {k: v for k, v in payload.model_dump().items() if v is not None}
+    if not update_data:
+        raise HTTPException(status_code=400, detail="Tidak ada perubahan")
+    await db.site_settings.update_one(
+        {"_id": "main"}, {"$set": update_data}, upsert=True
+    )
+    doc = await _get_settings_doc()
+    merged = {**DEFAULT_SETTINGS, **doc}
+    return merged
 
 
 # --- Leads ---

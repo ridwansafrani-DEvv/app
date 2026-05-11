@@ -8,10 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Car, Wallet, Repeat, ShieldCheck, MapPin, ArrowRight, CheckCircle2, Clock, Users, Star } from "lucide-react";
 import api from "@/lib/api";
 import { buildWhatsAppLink } from "@/lib/brand";
+import { useSettings } from "@/lib/settings";
 
 export default function HomePage() {
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { settings } = useSettings();
 
   useEffect(() => {
     api.get("/vehicles", { params: { featured: true, limit: 8 } })
@@ -30,14 +32,13 @@ export default function HomePage() {
           <div className="lg:col-span-6 order-2 lg:order-1">
             <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gold font-semibold">
               <span className="h-px w-8 bg-gold" />
-              Balikpapan · Handil · Kaltim
+              {settings.hero_overline}
             </div>
             <h1 className="mt-5 font-display font-bold text-navy text-4xl sm:text-5xl lg:text-6xl leading-[1.05] tracking-tight">
-              Solusi Kendaraan Bekas <span className="text-gold">&</span> Pendanaan Terpercaya
+              {settings.hero_headline_1} <span className="text-gold">{settings.hero_headline_amp}</span> {settings.hero_headline_2}
             </h1>
             <p className="mt-6 text-slate-600 text-base md:text-lg leading-relaxed max-w-xl">
-              Menemukan motor dan mobil impian kini lebih mudah. Unit terinspeksi, proses
-              transparan, dan solusi dana tunai <strong className="text-navy">Gadai BPKB</strong> yang aman bersama mitra leasing resmi.
+              {settings.hero_subheadline}
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3" data-testid="hero-cta-group">
@@ -58,9 +59,9 @@ export default function HomePage() {
             </div>
 
             <div className="mt-10 grid grid-cols-3 gap-4 max-w-md">
-              <Stat number="500+" label="Klien Terlayani" />
-              <Stat number="100%" label="Unit Terinspeksi" />
-              <Stat number="10 mnt" label="Respon WA" />
+              <Stat number={settings.stat_1_number} label={settings.stat_1_label} />
+              <Stat number={settings.stat_2_number} label={settings.stat_2_label} />
+              <Stat number={settings.stat_3_number} label={settings.stat_3_label} />
             </div>
           </div>
 
@@ -259,7 +260,7 @@ export default function HomePage() {
               Simulasi Sekarang
             </Link>
             <a
-              href={buildWhatsAppLink("Halo Ritri Auto, saya ingin konsultasi Gadai BPKB.")}
+              href={buildWhatsAppLink("Halo Ritri Auto, saya ingin konsultasi Gadai BPKB.", settings.whatsapp_number)}
               target="_blank"
               rel="noopener noreferrer"
               className="border border-white/30 text-white px-8 py-4 font-medium hover:bg-white/10 transition-colors text-center"

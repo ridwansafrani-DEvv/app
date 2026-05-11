@@ -8,8 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import api from "@/lib/api";
 import { buildWhatsAppLink } from "@/lib/brand";
+import { useSettings } from "@/lib/settings";
 
 export default function LeadFormDialog({ trigger, defaultType = "beli", vehicle, title, description }) {
+  const { settings } = useSettings();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -38,7 +40,7 @@ export default function LeadFormDialog({ trigger, defaultType = "beli", vehicle,
       await api.post("/leads", payload);
       toast.success("Permintaan terkirim! Tim kami akan menghubungi Anda segera.");
       const waMsg = `Halo Ritri Auto, saya *${form.name}* (${form.phone}) tertarik dengan layanan *${labelOfType(form.type)}*${vehicle ? ` untuk unit *${vehicle.title}*` : ""}. ${form.message}`;
-      window.open(buildWhatsAppLink(waMsg), "_blank");
+      window.open(buildWhatsAppLink(waMsg, settings.whatsapp_number), "_blank");
       setOpen(false);
       setForm({ name: "", phone: "", type: defaultType, message: "" });
     } catch (err) {

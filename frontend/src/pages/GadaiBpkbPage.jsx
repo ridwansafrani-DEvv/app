@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import api from "@/lib/api";
 import { formatIDR, buildWhatsAppLink } from "@/lib/brand";
+import { useSettings } from "@/lib/settings";
 import { Wallet, ShieldCheck, Clock, FileCheck2, Percent, BadgeCheck } from "lucide-react";
 
 const INTEREST_RATES = {
@@ -17,6 +18,7 @@ const INTEREST_RATES = {
 };
 
 export default function GadaiBpkbPage() {
+  const { settings } = useSettings();
   const [bpkbType, setBpkbType] = useState("mobil");
   const [estValue, setEstValue] = useState(150000000);
   const [pctLoan, setPctLoan] = useState(70);
@@ -53,7 +55,7 @@ export default function GadaiBpkbPage() {
       });
       toast.success("Pengajuan terkirim! Konsultan akan menghubungi Anda.");
       const waMsg = `Halo Ritri Auto, saya *${form.name}* (${form.phone}) ingin Gadai BPKB *${bpkbType}*. Estimasi nilai unit: ${formatIDR(estValue)}, pinjaman: ${formatIDR(loan)}, tenor: ${tenor} bulan, cicilan estimasi: ${formatIDR(monthly)}/bulan.`;
-      window.open(buildWhatsAppLink(waMsg), "_blank");
+      window.open(buildWhatsAppLink(waMsg, settings.whatsapp_number), "_blank");
       setForm({ name: "", phone: "" });
     } catch (err) {
       toast.error("Gagal mengirim. Coba lagi.");

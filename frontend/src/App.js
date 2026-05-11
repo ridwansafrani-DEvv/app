@@ -13,25 +13,28 @@ import AdminDashboardPage from "@/pages/AdminDashboardPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import StickyWhatsApp from "@/components/StickyWhatsApp";
 import ScrollToTop from "@/components/ScrollToTop";
+import { SettingsProvider } from "@/lib/settings";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/katalog" element={<CatalogPage />} />
-          <Route path="/kendaraan/:id" element={<VehicleDetailPage />} />
-          <Route path="/gadai-bpkb" element={<GadaiBpkbPage />} />
-          <Route path="/kontak" element={<ContactPage />} />
-          <Route path="/admin/login" element={<AdminLoginPage />} />
-          <Route path="/admin" element={<AdminDashboardPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-        <StickyWhatsApp />
-        <Toaster position="top-center" richColors />
-      </BrowserRouter>
+      <SettingsProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/katalog" element={<CatalogPage />} />
+            <Route path="/kendaraan/:id" element={<VehicleDetailPage />} />
+            <Route path="/gadai-bpkb" element={<GadaiBpkbPage />} />
+            <Route path="/kontak" element={<ContactPage />} />
+            <Route path="/admin/login" element={<AdminLoginPage />} />
+            <Route path="/admin" element={<AdminDashboardPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+          <StickyWhatsApp />
+          <Toaster position="top-center" richColors />
+        </BrowserRouter>
+      </SettingsProvider>
     </div>
   );
 }

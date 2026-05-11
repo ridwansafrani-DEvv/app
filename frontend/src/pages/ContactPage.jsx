@@ -8,10 +8,14 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import api from "@/lib/api";
-import { BRAND, WHATSAPP_NUMBER, buildWhatsAppLink } from "@/lib/brand";
-import { Phone, MapPin, Mail, MessageCircle, Clock } from "lucide-react";
+import { buildWhatsAppLink } from "@/lib/brand";
+import { useSettings } from "@/lib/settings";
+import { Phone, MapPin, Mail, MessageCircle, Clock, Instagram } from "lucide-react";
 
 export default function ContactPage() {
+  const { settings } = useSettings();
+  const wa = settings.whatsapp_number;
+  const waDigits = (wa || "").replace(/\D/g, "");
   const [form, setForm] = useState({ name: "", phone: "", type: "kontak", message: "" });
   const [loading, setLoading] = useState(false);
 
@@ -55,35 +59,40 @@ export default function ContactPage() {
             <InfoCard
               icon={<MessageCircle className="h-5 w-5" />}
               title="WhatsApp"
-              text={`+${WHATSAPP_NUMBER}`}
+              text={`+${waDigits}`}
               cta="Chat Sekarang"
-              href={buildWhatsAppLink()}
+              href={buildWhatsAppLink(null, wa)}
             />
             <InfoCard
               icon={<Phone className="h-5 w-5" />}
               title="Telepon"
-              text={`+${WHATSAPP_NUMBER}`}
+              text={`+${waDigits}`}
               cta="Hubungi"
-              href={`tel:+${WHATSAPP_NUMBER}`}
+              href={`tel:+${waDigits}`}
             />
             <InfoCard
               icon={<Mail className="h-5 w-5" />}
               title="Email"
-              text={BRAND.email}
+              text={settings.email}
               cta="Kirim Email"
-              href={`mailto:${BRAND.email}`}
+              href={`mailto:${settings.email}`}
             />
             <InfoCard
               icon={<MapPin className="h-5 w-5" />}
               title="Area Layanan"
-              text="Balikpapan & Handil, Kalimantan Timur"
+              text={settings.address}
               subtext="Kami juga mendampingi survei ke showroom rekanan."
             />
             <InfoCard
               icon={<Clock className="h-5 w-5" />}
               title="Jam Operasional"
-              text="Senin – Sabtu · 08.00 – 20.00 WITA"
-              subtext="Minggu / Libur: chat WA tetap aktif."
+              text={settings.business_hours}
+              subtext={settings.business_hours_note}
+            />
+            <InfoCard
+              icon={<Instagram className="h-5 w-5" />}
+              title="Instagram"
+              text={settings.instagram_handle}
             />
           </div>
 

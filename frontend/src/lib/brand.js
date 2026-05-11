@@ -12,9 +12,10 @@ export const BRAND = {
   email: "info@ritriautosolution.id",
 };
 
-export const buildWhatsAppLink = (text) => {
+export const buildWhatsAppLink = (text, phone) => {
+  const number = (phone || WHATSAPP_NUMBER).toString().replace(/\D/g, "");
   const msg = encodeURIComponent(text || "Halo Ritri Auto, saya tertarik dengan layanan Anda.");
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+  return `https://wa.me/${number}?text=${msg}`;
 };
 
 export const formatIDR = (n) => {

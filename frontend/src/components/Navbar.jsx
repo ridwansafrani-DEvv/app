@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import { BRAND, LOGO_URL } from "@/lib/brand";
+import { LOGO_URL } from "@/lib/brand";
+import { useSettings } from "@/lib/settings";
 
 const navItems = [
   { to: "/", label: "Beranda", end: true },
@@ -14,6 +15,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { settings } = useSettings();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -42,10 +44,10 @@ export default function Navbar() {
           />
           <div className="leading-tight">
             <div className="font-display font-bold text-navy text-base md:text-lg tracking-tight">
-              {BRAND.name}
+              {settings.brand_name}
             </div>
             <div className="text-[10px] uppercase tracking-[0.18em] text-slate-500 -mt-0.5">
-              Balikpapan · Handil
+              {settings.brand_short}
             </div>
           </div>
         </Link>

@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { formatIDR, formatKm, buildWhatsAppLink } from "@/lib/brand";
+import { useSettings } from "@/lib/settings";
 import { MapPin, Gauge, Calendar } from "lucide-react";
 
 export default function VehicleCard({ vehicle }) {
+  const { settings } = useSettings();
   const msg = `Halo Ritri Auto, saya tertarik dengan unit *${vehicle.title}* tahun ${vehicle.year} (${formatIDR(vehicle.price)}). Mohon info lebih lanjut.`;
   return (
     <article
@@ -55,7 +57,7 @@ export default function VehicleCard({ vehicle }) {
             </div>
           </div>
           <a
-            href={buildWhatsAppLink(msg)}
+            href={buildWhatsAppLink(msg, settings.whatsapp_number)}
             target="_blank"
             rel="noopener noreferrer"
             data-testid={`vehicle-wa-${vehicle.id}`}

@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import LeadFormDialog from "@/components/LeadFormDialog";
 import api from "@/lib/api";
 import { formatIDR, formatKm, buildWhatsAppLink } from "@/lib/brand";
+import { useSettings } from "@/lib/settings";
 import { Button } from "@/components/ui/button";
 import { Calendar, Gauge, MapPin, Fuel, Settings2, Palette, CheckCircle2, ChevronRight, ArrowLeft } from "lucide-react";
 
@@ -13,6 +14,7 @@ export default function VehicleDetailPage() {
   const [vehicle, setVehicle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState(0);
+  const { settings } = useSettings();
 
   useEffect(() => {
     setLoading(true);
@@ -112,7 +114,7 @@ export default function VehicleDetailPage() {
 
           <div className="mt-8 flex flex-col gap-3">
             <a
-              href={buildWhatsAppLink(waMsg)}
+              href={buildWhatsAppLink(waMsg, settings.whatsapp_number)}
               target="_blank"
               rel="noopener noreferrer"
               data-testid="detail-cta-whatsapp"

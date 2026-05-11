@@ -1,11 +1,14 @@
 import React from "react";
 import { buildWhatsAppLink } from "@/lib/brand";
+import { useSettings } from "@/lib/settings";
 import { MessageCircle } from "lucide-react";
 
 export default function StickyWhatsApp({ message }) {
+  const { settings } = useSettings();
   const href = buildWhatsAppLink(
     message ||
-      "Halo Ritri Auto, saya tertarik untuk konsultasi mengenai kendaraan / Gadai BPKB. Mohon info lebih lanjut."
+      "Halo Ritri Auto, saya tertarik untuk konsultasi mengenai kendaraan / Gadai BPKB. Mohon info lebih lanjut.",
+    settings.whatsapp_number
   );
   return (
     <a

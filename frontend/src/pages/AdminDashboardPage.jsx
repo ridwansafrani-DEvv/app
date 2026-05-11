@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { formatIDR, formatKm, LOGO_URL } from "@/lib/brand";
 import ImageUploader from "@/components/ImageUploader";
+import SettingsPanel from "@/pages/admin/SettingsPanel";
 import { LogOut, Plus, Pencil, Trash2, Car, Wallet, Users, MessageSquare } from "lucide-react";
 
 const emptyVehicle = {
@@ -149,6 +150,7 @@ export default function AdminDashboardPage() {
           <TabsList>
             <TabsTrigger value="vehicles" data-testid="tab-vehicles">Katalog Kendaraan</TabsTrigger>
             <TabsTrigger value="leads" data-testid="tab-leads">Leads ({stats?.leads.total ?? 0})</TabsTrigger>
+            <TabsTrigger value="settings" data-testid="tab-settings">Pengaturan Situs</TabsTrigger>
           </TabsList>
 
           <TabsContent value="vehicles" className="mt-6">
@@ -249,6 +251,10 @@ export default function AdminDashboardPage() {
                 </Table>
               </div>
             </div>
+          </TabsContent>
+
+          <TabsContent value="settings" className="mt-6">
+            <SettingsPanel />
           </TabsContent>
         </Tabs>
       </main>
