@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Depends, status
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, status, Query
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
@@ -6,6 +6,9 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 import secrets
+import time
+import cloudinary
+import cloudinary.utils
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional, Literal
@@ -22,6 +25,14 @@ db = client[os.environ['DB_NAME']]
 
 ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'ritri2025')
+
+# Cloudinary
+cloudinary.config(
+    cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.environ.get('CLOUDINARY_API_KEY'),
+    api_secret=os.environ.get('CLOUDINARY_API_SECRET'),
+    secure=True,
+)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -278,6 +289,29 @@ async def admin_stats(_: str = Depends(get_current_admin)):
     return {
         "vehicles": {"total": total_vehicles, "motor": total_motor, "mobil": total_mobil},
         "leads": {"total": total_leads, "new": new_leads},
+    }
+
+
+# --- Cloudinary signature (admin only) ---
+@api_router.get("/cloudinary/signature")
+async def cloudinary_signature(
+    folder: str = Query("ritri/vehicles"),
+    _: str = Depends(get_current_admin),
+):
+    allowed_prefixes = ("ritri/",)
+    if not folder.startswith(allowed_prefixes):
+        raise HTTPException(status_code=400, detail="Invalid folder path")
+    timestamp = int(time.time())
+    params = {"timestamp": timestamp, "folder": folder}
+    signature = cloudinary.utils.api_sign_request(
+        params, os.environ.get("CLOUDINARY_API_SECRET")
+    )
+    return {
+        "signature": signature,
+        "timestamp": timestamp,
+        "cloud_name": os.environ.get("CLOUDINARY_CLOUD_NAME"),
+        "api_key": os.environ.get("CLOUDINARY_API_KEY"),
+        "folder": folder,
     }
 
 

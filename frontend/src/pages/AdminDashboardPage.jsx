@@ -12,6 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { formatIDR, formatKm, LOGO_URL } from "@/lib/brand";
+import ImageUploader from "@/components/ImageUploader";
 import { LogOut, Plus, Pencil, Trash2, Car, Wallet, Users, MessageSquare } from "lucide-react";
 
 const emptyVehicle = {
@@ -282,8 +283,22 @@ export default function AdminDashboardPage() {
               <Field label="Warna" value={editing.color} onChange={(v) => setEditing({ ...editing, color: v })} />
               <Field label="Lokasi" value={editing.location} onChange={(v) => setEditing({ ...editing, location: v })} />
               <Field label="Status" value={editing.status} onChange={(v) => setEditing({ ...editing, status: v })} />
-              <Field label="Image URL Utama" value={editing.image_url} onChange={(v) => setEditing({ ...editing, image_url: v })} full />
-              <Field label="Gallery (URL, pisah koma)" value={Array.isArray(editing.gallery) ? editing.gallery.join(", ") : editing.gallery} onChange={(v) => setEditing({ ...editing, gallery: v })} full />
+              <div className="md:col-span-2">
+                <ImageUploader
+                  label="Foto Utama (tampil di card)"
+                  mode="single"
+                  value={editing.image_url}
+                  onChange={(v) => setEditing({ ...editing, image_url: v })}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <ImageUploader
+                  label="Foto Galeri (multi-upload, opsional)"
+                  mode="multi"
+                  value={Array.isArray(editing.gallery) ? editing.gallery : (typeof editing.gallery === "string" && editing.gallery ? editing.gallery.split(",").map(s => s.trim()).filter(Boolean) : [])}
+                  onChange={(v) => setEditing({ ...editing, gallery: v })}
+                />
+              </div>
               <Field label="Fitur (pisah koma)" value={Array.isArray(editing.features) ? editing.features.join(", ") : editing.features} onChange={(v) => setEditing({ ...editing, features: v })} full />
               <div className="md:col-span-2">
                 <Label>Deskripsi</Label>
