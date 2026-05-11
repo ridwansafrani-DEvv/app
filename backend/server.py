@@ -23,6 +23,12 @@ db = client[os.environ['DB_NAME']]
 ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'ritri2025')
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 app = FastAPI(title="Ritri Auto Solution API")
 api_router = APIRouter(prefix="/api")
 security = HTTPBearer(auto_error=False)
@@ -287,9 +293,9 @@ SEED_VEHICLES = [
         "transmission": "Automatic",
         "fuel": "Bensin",
         "color": "Putih Mutiara",
-        "image_url": "https://images.unsplash.com/photo-1659083934189-ebc3cfd8d4c4?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+        "image_url": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         "gallery": [
-            "https://images.unsplash.com/photo-1659083934189-ebc3cfd8d4c4?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+            "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
             "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         ],
         "location": "Balikpapan",
@@ -308,9 +314,9 @@ SEED_VEHICLES = [
         "transmission": "CVT",
         "fuel": "Bensin",
         "color": "Merah",
-        "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+        "image_url": "https://images.unsplash.com/photo-1542362567-b07e54358753?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         "gallery": [
-            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+            "https://images.unsplash.com/photo-1542362567-b07e54358753?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         ],
         "location": "Balikpapan",
         "status": "Unit Ready",
@@ -328,9 +334,9 @@ SEED_VEHICLES = [
         "transmission": "Automatic",
         "fuel": "Bensin",
         "color": "Hitam Metalik",
-        "image_url": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+        "image_url": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         "gallery": [
-            "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+            "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         ],
         "location": "Handil",
         "status": "Unit Ready",
@@ -348,9 +354,9 @@ SEED_VEHICLES = [
         "transmission": "Automatic",
         "fuel": "Bensin",
         "color": "Silver",
-        "image_url": "https://images.unsplash.com/photo-1583121274602-3e2820c69888?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+        "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         "gallery": [
-            "https://images.unsplash.com/photo-1583121274602-3e2820c69888?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         ],
         "location": "Balikpapan",
         "status": "Unit Ready",
@@ -368,9 +374,9 @@ SEED_VEHICLES = [
         "transmission": "Automatic",
         "fuel": "Bensin",
         "color": "Merah Hitam",
-        "image_url": "https://images.unsplash.com/photo-1711900740026-d6caecdaf574?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+        "image_url": "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         "gallery": [
-            "https://images.unsplash.com/photo-1711900740026-d6caecdaf574?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+            "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         ],
         "location": "Balikpapan",
         "status": "Unit Ready",
@@ -408,9 +414,9 @@ SEED_VEHICLES = [
         "transmission": "Automatic",
         "fuel": "Bensin",
         "color": "Hitam",
-        "image_url": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+        "image_url": "https://images.unsplash.com/photo-1611241443322-b5c0d97d2b50?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         "gallery": [
-            "https://images.unsplash.com/photo-1558981806-ec527fa84c39?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+            "https://images.unsplash.com/photo-1611241443322-b5c0d97d2b50?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         ],
         "location": "Handil",
         "status": "Unit Ready",
@@ -428,9 +434,9 @@ SEED_VEHICLES = [
         "transmission": "Automatic",
         "fuel": "Bensin",
         "color": "Biru Doff",
-        "image_url": "https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+        "image_url": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         "gallery": [
-            "https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
+            "https://images.unsplash.com/photo-1558981806-ec527fa84c39?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
         ],
         "location": "Balikpapan",
         "status": "Unit Ready",
@@ -465,13 +471,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
-
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
