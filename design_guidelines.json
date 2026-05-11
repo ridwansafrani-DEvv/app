@@ -1,0 +1,131 @@
+{
+  "project_name": "Ritri Auto Solution",
+  "industry": "Automotive Marketplace & Fintech",
+  "theme": "LIGHT",
+  "archetype": "Archetype 4 (Swiss & High-Contrast) adapted for Authority and Premium Fintech",
+  "design_vision": "Elegant, professional, minimalist, and trustworthy. We avoid the 'sleazy car salesman' trope by adopting a premium, high-contrast fintech aesthetic. The interface acts as a transparent, authoritative consultant.",
+  "colors": {
+    "background": {
+      "primary": "#FFFFFF",
+      "secondary": "#F8F9FA",
+      "accent_block": "#0A192F"
+    },
+    "text": {
+      "primary": "#0A192F",
+      "secondary": "#475569",
+      "inverse": "#FFFFFF",
+      "accent": "#D4AF37"
+    },
+    "brand": {
+      "navy_dark": "#0A192F",
+      "navy_light": "#0F294D",
+      "gold": "#D4AF37",
+      "silver": "#94A3B8"
+    },
+    "status": {
+      "success": "#16A34A",
+      "warning": "#F59E0B",
+      "error": "#DC2626"
+    }
+  },
+  "typography": {
+    "heading_font": "Cabinet Grotesk, sans-serif",
+    "body_font": "Satoshi, sans-serif",
+    "rules": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0A192F]",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-[#0A192F]",
+      "h3": "text-xl sm:text-2xl font-medium text-[#0A192F]",
+      "body": "text-base leading-relaxed text-[#475569]",
+      "overline": "text-xs font-bold uppercase tracking-[0.2em] text-[#D4AF37]"
+    }
+  },
+  "spacing_and_layout": {
+    "section_padding": "py-20 md:py-32",
+    "container": "max-w-7xl mx-auto px-6 lg:px-8",
+    "grid_bento": "grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8",
+    "grid_catalog": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6",
+    "borderRadius": "rounded-xl",
+    "philosophy": "Generous breathing room. The design must feel expansive and unhurried to communicate luxury and trust."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#0A192F] text-white hover:bg-[#0F294D] transition-colors rounded-none px-8 py-4 font-medium",
+      "secondary": "bg-transparent border border-[#0A192F] text-[#0A192F] hover:bg-slate-50 transition-colors rounded-none px-8 py-4 font-medium",
+      "whatsapp_sticky": "fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:-translate-y-1 transition-transform z-50 flex items-center justify-center"
+    },
+    "cards": {
+      "service": "bg-white p-8 border border-slate-100 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 flex flex-col items-start",
+      "product": "bg-white border border-slate-100 overflow-hidden group hover:border-[#D4AF37]/30 transition-colors"
+    },
+    "inputs": "bg-slate-50 border-none focus:ring-2 focus:ring-[#0A192F] rounded-md px-4 py-3 text-base text-[#0A192F]",
+    "labels": {
+      "ready_stock": "absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-[#0A192F] text-xs font-bold px-3 py-1 uppercase tracking-wider shadow-sm"
+    }
+  },
+  "pages_and_structure": {
+    "landing_page": [
+      {
+        "section": "Hero",
+        "description": "Full height or 80vh layout. High-res vehicle image taking up 50-60% of the screen. Left side: massive headline 'Solusi Kendaraan Bekas & Pendanaan Terpercaya di Balikpapan & Handil', sub-headline, and two CTAs (Cari Kendaraan, Konsultasi BPKB). Dark Navy text on a crisp white/silver-tinted background."
+      },
+      {
+        "section": "Service Highlights",
+        "description": "3-column bento grid detailing 'Beli Kendaraan', 'Jual & Tukar Tambah', and 'Gadai BPKB'. Minimalist icons (Phosphor icons recommended)."
+      },
+      {
+        "section": "Product Showcase",
+        "description": "Grid of top vehicles. Each product card has a high-quality image, title, specs (Year, Mileage), price, and a 'Tanya via WhatsApp' CTA button. Includes 'Unit Ready - Balikpapan' label."
+      },
+      {
+        "section": "Trust Builder",
+        "description": "Side-by-side layout. Image of a professional consultant handshake. Text explaining the broker/consultant model: safe, transparent, and direct to showroom."
+      }
+    ],
+    "gadai_bpkb_page": {
+      "description": "Dedicated landing page for cash loans.",
+      "features": ["Hero explaining fast liquidations and low interest", "Interactive Loan Calculator (Simulasi Pinjaman) using Shadcn Forms/Sliders", "Lead capture form connected to WhatsApp"]
+    },
+    "admin_panel": {
+      "description": "Simple protected dashboard for managing vehicle inventory.",
+      "features": ["Data table of vehicles", "Add/Edit/Delete forms with fields for title, category (mobil/motor), price, year, mileage, and image URL"]
+    }
+  },
+  "interactions": {
+    "hover_states": "All interactive elements MUST have a clear hover state. Buttons shift background color, cards elevate slightly (-translate-y-1) and cast a soft ambient shadow.",
+    "page_transitions": "Fade-in entrance for major sections using Framer Motion (opacity: 0 to 1, y: 20 to 0)."
+  },
+  "media_and_assets": {
+    "icons": "Use @phosphor-icons/react or lucide-react with thin/light weights for a premium feel.",
+    "images": [
+      {
+        "id": "hero_vehicle",
+        "url": "https://images.unsplash.com/photo-1763562137761-c1feadcf4261?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHwyfHxzaWx2ZXIlMjBsdXh1cnklMjBjYXJ8ZW58MHx8fHwxNzc4NTA3MzkxfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Silver premium sports car indoors, perfect for the hero section background or side-image."
+      },
+      {
+        "id": "trust_builder_handshake",
+        "url": "https://images.unsplash.com/photo-1758518730384-be3d205838e8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBjb25zdWx0YW50JTIwaGFuZHNoYWtlfGVufDB8fHx8MTc3ODUwNzM2OXww&ixlib=rb-4.1.0&q=85",
+        "description": "Two professionals shaking hands across a table. Use in the Trust Builder section."
+      },
+      {
+        "id": "product_car_1",
+        "url": "https://images.unsplash.com/photo-1659083934189-ebc3cfd8d4c4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHw0fHxzaWx2ZXIlMjBsdXh1cnklMjBjYXJ8ZW58MHx8fHwxNzc4NTA3MzkxfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Silver car parked outside. Use as a sample product in the catalog."
+      },
+      {
+        "id": "product_motorcycle_1",
+        "url": "https://images.unsplash.com/photo-1711900740026-d6caecdaf574?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTB8MHwxfHNlYXJjaHw0fHxtb3RvcmN5Y2xlJTIwcGFya2VkfGVufDB8fHx8MTc3ODUwNzM5MXww&ixlib=rb-4.1.0&q=85",
+        "description": "Motorcycle parked. Use as a sample product in the catalog."
+      }
+    ]
+  },
+  "testing_attributes": "All interactive and key informational elements MUST include a data-testid attribute in kebab-case (e.g., data-testid='cta-whatsapp-button').",
+  "instructions_to_main_agent": [
+    "Strictly follow the color palette. No generic blue; use the specified Navy and Gold hex codes.",
+    "Do NOT use 'Inter' for headings. Install and use 'Cabinet Grotesk' or fallback to a similar premium Sans/Display font.",
+    "Ensure the layout is highly optimized for mobile (mobile-first), as traffic comes from Meta Ads.",
+    "Build the Gadai BPKB Loan Simulator as an interactive client component with Shadcn sliders.",
+    "Implement the Sticky WhatsApp CTA globally.",
+    "For the admin panel, use pure Shadcn Table and Form components. Keep it secure but simple."
+  ]
+}
