@@ -15,13 +15,14 @@ from typing import List, Optional, Literal
 import uuid
 from datetime import datetime, timezone, timedelta
 
-
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-mongo_url = os.environ['MONGO_URL']
+# PERBAIKAN VERCEL: Pakai .get() supaya tidak crash/500 Error saat cold start
+mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db_name = os.environ.get('DB_NAME', 'ritri_db')
+db = client[db_name]
 
 ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'ritri2025')
@@ -46,6 +47,11 @@ security = HTTPBearer(auto_error=False)
 
 # In-memory token store (simple session for admin)
 ACTIVE_TOKENS: dict = {}
+
+# PERBAIKAN VERCEL: Tambahan rute utama biar link web nggak 404 kalau dibuka
+@app.get("/")
+async def vercel_root():
+    return {"message": "Backend Ritri Auto Solution BERHASIL NYALA di Vercel Bro! 🚀", "status": "Ready"}
 
 
 # ============ MODELS ============
@@ -238,7 +244,7 @@ def get_current_admin(credentials: HTTPAuthorizationCredentials = Depends(securi
 
 # ============ ROUTES ============
 @api_router.get("/")
-async def root():
+async def api_root():
     return {"message": "Ritri Auto Solution API", "status": "ok"}
 
 
@@ -462,143 +468,25 @@ SEED_VEHICLES = [
         "features": ["Tangan Pertama", "Bebas Tabrak", "Irit BBM", "Audio Touchscreen"],
         "featured": True,
     },
-    {
-        "title": "Mitsubishi Xpander Sport AT",
-        "category": "mobil",
-        "brand": "Mitsubishi",
-        "year": 2020,
-        "mileage": 62000,
-        "price": 215000000,
-        "transmission": "Automatic",
-        "fuel": "Bensin",
-        "color": "Hitam Metalik",
-        "image_url": "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        "gallery": [
-            "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        ],
-        "location": "Handil",
-        "status": "Unit Ready",
-        "description": "MPV gagah dan lapang. Mesin halus, suspensi empuk. Cocok untuk keluarga besar.",
-        "features": ["Cruise Control", "Push Start", "Captain Seat", "Velg Racing"],
-        "featured": False,
-    },
-    {
-        "title": "Daihatsu Sigra R AT",
-        "category": "mobil",
-        "brand": "Daihatsu",
-        "year": 2023,
-        "mileage": 18000,
-        "price": 162000000,
-        "transmission": "Automatic",
-        "fuel": "Bensin",
-        "color": "Silver",
-        "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        "gallery": [
-            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        ],
-        "location": "Balikpapan",
-        "status": "Unit Ready",
-        "description": "LMPV super irit, baru pakai 1 tahun. Garansi resmi masih aktif.",
-        "features": ["Garansi Resmi", "Service Record ATPM", "Irit BBM", "7 Seater"],
-        "featured": False,
-    },
-    {
-        "title": "Honda Vario 160 ABS",
-        "category": "motor",
-        "brand": "Honda",
-        "year": 2023,
-        "mileage": 8500,
-        "price": 28500000,
-        "transmission": "Automatic",
-        "fuel": "Bensin",
-        "color": "Merah Hitam",
-        "image_url": "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        "gallery": [
-            "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        ],
-        "location": "Balikpapan",
-        "status": "Unit Ready",
-        "description": "Matic premium 160cc. ABS, Smart Key, body mulus. Pajak panjang.",
-        "features": ["ABS", "Smart Key", "Body Mulus", "Pajak Panjang"],
-        "featured": True,
-    },
-    {
-        "title": "Yamaha NMAX 155 Connected",
-        "category": "motor",
-        "brand": "Yamaha",
-        "year": 2022,
-        "mileage": 15200,
-        "price": 26500000,
-        "transmission": "Automatic",
-        "fuel": "Bensin",
-        "color": "Hitam Doff",
-        "image_url": "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        "gallery": [
-            "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        ],
-        "location": "Balikpapan",
-        "status": "Unit Ready",
-        "description": "Big matic nyaman untuk turing dan harian. Service rutin Yamaha.",
-        "features": ["Connected", "ABS", "Service Yamaha", "Ban Tebal"],
-        "featured": True,
-    },
-    {
-        "title": "Honda BeAT Street 2022",
-        "category": "motor",
-        "brand": "Honda",
-        "year": 2022,
-        "mileage": 12000,
-        "price": 16500000,
-        "transmission": "Automatic",
-        "fuel": "Bensin",
-        "color": "Hitam",
-        "image_url": "https://images.unsplash.com/photo-1611241443322-b5c0d97d2b50?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        "gallery": [
-            "https://images.unsplash.com/photo-1611241443322-b5c0d97d2b50?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        ],
-        "location": "Handil",
-        "status": "Unit Ready",
-        "description": "Matic harian irit, lincah untuk kota. Surat komplit BPKB tangan pertama.",
-        "features": ["Tangan Pertama", "Irit", "Surat Komplit", "Mesin Halus"],
-        "featured": False,
-    },
-    {
-        "title": "Yamaha Aerox 155 ABS",
-        "category": "motor",
-        "brand": "Yamaha",
-        "year": 2023,
-        "mileage": 6800,
-        "price": 29500000,
-        "transmission": "Automatic",
-        "fuel": "Bensin",
-        "color": "Biru Doff",
-        "image_url": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        "gallery": [
-            "https://images.unsplash.com/photo-1558981806-ec527fa84c39?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200",
-        ],
-        "location": "Balikpapan",
-        "status": "Unit Ready",
-        "description": "Sporty matic dengan tampang agresif. KM rendah, masih garansi.",
-        "features": ["ABS", "KM Rendah", "Garansi", "Velg Racing"],
-        "featured": False,
-    },
 ]
 
 
 @app.on_event("startup")
 async def seed_data():
-    count = await db.vehicles.count_documents({})
-    if count == 0:
-        docs = []
-        for v in SEED_VEHICLES:
-            obj = Vehicle(**v)
-            d = obj.model_dump()
-            d["created_at"] = d["created_at"].isoformat()
-            docs.append(d)
-        if docs:
-            await db.vehicles.insert_many(docs)
-            logger.info(f"Seeded {len(docs)} vehicles")
-
+    try:
+        count = await db.vehicles.count_documents({})
+        if count == 0:
+            docs = []
+            for v in SEED_VEHICLES:
+                obj = Vehicle(**v)
+                d = obj.model_dump()
+                d["created_at"] = d["created_at"].isoformat()
+                docs.append(d)
+            if docs:
+                await db.vehicles.insert_many(docs)
+                logger.info(f"Seeded {len(docs)} vehicles")
+    except Exception as e:
+        logger.error(f"Gagal konek database saat seed data: {e}")
 
 app.include_router(api_router)
 
